@@ -103,7 +103,7 @@ const scrollToSection = (sectionId) => {
         <div class="about-content">
           <div class="about-image-side">
             <div class="about-image-placeholder">
-              <span class="image-icon">🏪</span>
+              <img src="/src/assets/images/fachada.jpg" alt="🏪">
             </div>
             <div class="book-table">
               <h3>Reserva una mesa</h3>
@@ -111,16 +111,16 @@ const scrollToSection = (sectionId) => {
             </div>
           </div>
 
-          <div class="about-text-side">
+          <div class="about-container about-text-side">
             <p class="intro-text">
               Esta es una pequeña descripción de nuestro concepto, queremos que se sientan lo más cómodos posibles para charlar.
             </p>
             <p>
               Aquí, en Café Charly, creemos en el poder de las conversaciones reales y las relaciones humanas. Y es eso lo que nos lleva a construir un ambiente íntimo donde nuestros clientes se sienten libres de escapar de la realidad y disfrutar de un buen café mientras saborean momentos cálidos, sonrisas y conversaciones inolvidables.
             </p>
-            <div class="about-image-small">
+            <div class="about-image-vertical">
               <div class="small-image-placeholder">
-                <span class="image-icon">☕</span>
+                <img src="/src/assets/images/capuccino.png" alt="☕">
               </div>
             </div>
           </div>
@@ -225,7 +225,7 @@ const scrollToSection = (sectionId) => {
             <i class="icon">📞</i>
             <div>
               <h3>Llámanos</h3>
-              <p class="phone-number">+52 352 116 6570</p>
+              <p class="phone-number">+52 352 111 6432</p>
             </div>
           </div>
 
@@ -266,7 +266,7 @@ const scrollToSection = (sectionId) => {
             <i class="footer-icon">📞</i>
             <div class="footer-text">
               <h4>Contacto</h4>
-              <p><strong>Teléfono:</strong> +52 352 116 6570</p>
+              <p><strong>Teléfono:</strong> +52 352 111 6432</p>
               <p><strong>Email:</strong> cafe.charly@gmail.com</p>
             </div>
           </div>
@@ -528,22 +528,80 @@ h3{
   align-items: start;
 }
 
-.about-image-placeholder,
-.small-image-placeholder {
+.about-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.about-image-placeholder {
   background: linear-gradient(135deg, #D4D5B9 0%, #c4c5a9 100%);
-  border-radius: 12px;
-  height: 300px;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 500px;
+  height: auto;
+  aspect-ratio: 4/3;
   display: flex;
   align-items: center;
   justify-content: center;
   margin-bottom: 2rem;
+  overflow: hidden;
 }
 
-.small-image-placeholder {
-  height: 250px;
+.about-image-placeholder img {
+  border-radius: 8px;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.about-image-vertical {
+  width: 100%;
+  max-width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   margin-top: 2rem;
 }
 
+.small-image-placeholder {
+  background: linear-gradient(135deg, #D4D5B9 0%, #c4c5a9 100%);
+  border-radius: 8px;
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+  aspect-ratio: 3/4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.small-image-placeholder img {
+  border-radius: 8px;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.about-image-horizontal {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.about-image-horizontal img {
+  border-radius: 8px;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  object-fit: cover;
+}
 .image-icon {
   font-size: 5rem;
 }
@@ -578,6 +636,7 @@ h3{
   line-height: 1.8;
   color: var(--text-dark);
   margin-bottom: 1rem;
+  text-align: justify;
 }
 
 /* Menu Section */
@@ -846,6 +905,33 @@ h3{
   .contact-info-grid {
     grid-template-columns: 1fr;
     gap: 2dvh;
+  }
+
+  .about-image-placeholder {
+    max-width: 100%;
+    aspect-ratio: 16/9;
+  }
+  
+  .about-image-placeholder img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .about-image-vertical {
+    margin-top: 2rem;
+  }
+  
+  .small-image-placeholder {
+    max-width: 100%;
+    aspect-ratio: 1/1;
+    margin: 0 auto;
+  }
+  
+  .small-image-placeholder img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
 }
 </style>
