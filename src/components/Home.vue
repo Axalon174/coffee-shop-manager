@@ -8,6 +8,7 @@ const menu = useMenuStore()
 
 // Estado para la sección activa
 const activeSection = ref('hero')
+const selectedCategory = ref(null)
 
 // Cargar menú al iniciar
 onMounted(() => {
@@ -15,18 +16,25 @@ onMounted(() => {
 })
 
 const featuredItems = computed(() => {
+  if (selectedCategory.value) {
+    return itemsByCategory.value[selectedCategory.value] || []
+  }
   return menu.items.slice(0, 6)
 })
 
-// Agrupar items por categoría
 const itemsByCategory = computed(() => {
   const grouped = {}
-  menu.items.forEach(item => {
-    if (!grouped[item.category]) {
-      grouped[item.category] = []
+  const list = menu.items || [] 
+  
+  list.forEach(item => {
+    const cat = item.category || 'Otros'
+    
+    if (!grouped[cat]) {
+      grouped[cat] = []
     }
-    grouped[item.category].push(item)
+    grouped[cat].push(item)
   })
+  
   return grouped
 })
 
@@ -136,16 +144,24 @@ const scrollToSection = (sectionId) => {
           <!-- Tabs de categorías -->
           <div class="menu-tabs" v-if="Object.keys(itemsByCategory).length > 0">
             <button 
+                class="tab-button" 
+                :class="{ active: selectedCategory === null }"
+                @click="selectedCategory = null"
+            >
+                Destacados
+            </button>
+            <button 
               v-for="(items, category) in itemsByCategory" 
               :key="category"
               class="tab-button"
+              :class="{ active: selectedCategory === category }"
+              @click="selectedCategory = category"
             >
               {{ category }}
             </button>
           </div>
-
           <!-- Grid de productos destacados -->
-          <div class="menu-grid">
+          <div v-if="featuredItems.length > 0" class="menu-grid">
             <div 
               v-for="item in featuredItems" 
               :key="item.id"
