@@ -151,14 +151,20 @@ const scrollToSection = (sectionId) => {
               :key="item.id"
               class="menu-item"
             >
-              <div class="menu-item-image">
-                <span class="item-emoji">
+                <div class="menu-item-image">
+                <span v-if="!item.img_url" class="item-emoji">
                   {{ item.category === 'Bebidas' ? '☕' : 
-                     item.category === 'Postres' ? '🧁' : '🍪' }}
+                   item.category === 'Postres' ? '🧁' : '🍪' }}
                 </span>
+                <img 
+                  v-else 
+                  :src="item.img_url" 
+                  :alt="item.name" 
+                  style="max-width: 80px; max-height: 80px; border-radius: 8px;"
+                >
               </div>
               <h4>{{ item.name }}</h4>
-              <p class="item-description">{{ item.category }}</p>
+              <p class="item-description">{{ item.description }}</p>
               <p class="item-price">${{ item.price }}</p>
             </div>
           </div>
