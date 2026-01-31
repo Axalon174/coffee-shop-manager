@@ -1,7 +1,7 @@
 {
   "name": "coffee-shop-manager",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.0.2",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -9,13 +9,14 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@supabase/supabase-js": "^2.91.1",
-    "pinia": "^3.0.4",
-    "vue": "^3.5.24",
-    "vue-router": "^4.6.4"
+    "@supabase/supabase-js": "2.91.1",
+    "lucide-vue-next": "^0.563.0",
+    "pinia": "3.0.4",
+    "vue": "3.5.24",
+    "vue-router": "4.6.4"
   },
   "devDependencies": {
-    "@vitejs/plugin-vue": "^6.0.1",
-    "vite": "^7.2.4"
+    "@vitejs/plugin-vue": "6.0.1",
+    "vite": "7.2.4"
   }
 }

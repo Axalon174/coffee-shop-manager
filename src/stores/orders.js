@@ -1,9 +1,10 @@
 import { defineStore } from 'pinia'
 import { supabase } from '../supabase'
+import { useTableStore } from './tables'
+import { useModalStore } from './modal'
 
 export const useOrderStore = defineStore('order', {
   state: () => ({
-    currentTable: 1, 
     cart: [], 
     isSending: false
   }),
@@ -15,9 +16,10 @@ export const useOrderStore = defineStore('order', {
   },
 
   actions: {
-    addToCart(product) {
+    addToCart(product, notes = '') {
       this.cart.push({
         ...product,
+        notes: notes,
         tempId: Date.now() // ID temporal para la UI
       })
     },
@@ -29,13 +31,21 @@ export const useOrderStore = defineStore('order', {
     async sendOrder() {
       if (this.cart.length === 0) return
       
+      const tableStore = useTableStore()
+      const modalStore = useModalStore()
+      
+      if (!tableStore.currentTable) {
+        modalStore.showModal('Por favor selecciona una mesa primero', 'warning')
+        return
+      }
+      
       this.isSending = true
       
       try {
         const { data: orderData, error: orderError } = await supabase
           .from('orders')
           .insert({
-            table_id: this.currentTable,
+            table_id: tableStore.currentTable.id,
             staff_id: 2, 
             status: 'open',
             total_amount: this.totalAmount
@@ -51,6 +61,7 @@ export const useOrderStore = defineStore('order', {
           order_id: newOrderId,
           menu_item_id: item.id,
           quantity: 1,
+          notes: item.notes || null,
           status: 'pending'
         }))
 
@@ -61,13 +72,16 @@ export const useOrderStore = defineStore('order', {
 
         if (itemsError) throw itemsError
 
-       
-        alert(`¡Orden #${newOrderId} creada con éxito!`)
+        if (tableStore.currentTable.label !== 'Para llevar') {
+          await tableStore.updateTableStatus(tableStore.currentTable.id, 'occupied')
+        }
+
+        modalStore.showModal(`¡Orden #${newOrderId} creada con éxito para mesa ${tableStore.currentTable.label}!`, 'success')
         this.cart = [] //clear cart
 
       } catch (error) {
         console.error('Error creando orden:', error)
-        alert('Hubo un error al enviar la orden')
+        modalStore.showModal('Hubo un error al enviar la orden', 'error')
       } finally {
         this.isSending = false
       }

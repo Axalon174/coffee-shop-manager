@@ -79,7 +79,7 @@ const scrollToSection = (sectionId) => {
             <p class="hero-subtitle">Más que charlas digitales, ¡Aquí encontrarás mucho de qué conversar!</p>
             <div class="hero-buttons">
               <a href="#menu" @click.prevent="scrollToSection('menu')" class="btn-primary">Ver el menú</a>
-              <a href="https://www.youtube.com/watch?v=Y7f98aduVJ8" class="btn-video" target="_blank">
+              <a href="https://youtu.be/NpEaa2P7qZI?si=HYgas1WeZ_gL0DPX" class="btn-video" target="_blank">
                 <span class="play-icon">▶</span>
                 <span>Vídeo promocional</span>
               </a>

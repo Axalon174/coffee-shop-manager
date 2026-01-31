@@ -161,8 +161,11 @@ html {
   color: var(--text-light);
   font-size: 1.1rem;
 }
-
-
+/*util*/
+.divider {
+  background-color: var(--border-color);
+  margin: 1rem 0;
+}
 /* Responsive */
 @media (max-width: 768px) {
   :root {
