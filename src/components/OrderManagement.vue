@@ -309,7 +309,7 @@ onMounted(() => {
         >
 
           <div class="card-content">
-
+            <img v-if="item.img_url" :src="item.img_url" :alt="item.name" class="product-img" />
             <span class="product-name">{{ item.name }}</span>
 
             <span class="product-cat">{{ item.category }}</span>
@@ -680,6 +680,7 @@ onMounted(() => {
   gap: 1.5rem;
 
   margin-top: 2rem;
+  justify-content: center;
 
 }
 
@@ -704,7 +705,8 @@ onMounted(() => {
 
   justify-content: space-between;
 
-  height: 160px;
+  height: auto;
+  min-height: 160px;
 
   transition: transform 0.2s, box-shadow 0.2s;
 
@@ -754,6 +756,15 @@ onMounted(() => {
 
   align-self: flex-end;
 
+}
+
+.product-img {
+  width: 100%;
+  height: 120px;
+  object-fit: contain;
+  border-radius: 8px;
+  margin-bottom: 0.5rem;
+  display: block;
 }
 
 
@@ -960,6 +971,8 @@ onMounted(() => {
   gap: 0.5rem;
   justify-content: flex-end;
 }
+
+
 /*---Media Queries---*/
 
 @media (max-width: 768px) {
@@ -1008,23 +1021,40 @@ onMounted(() => {
 @media (max-width: 480px) {
 
   .product-card {
-
-    height: 140px;
-
+    height: auto;
+    min-height: 160px;
+    width: 100%;
     padding: 1rem;
-
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(140px, 1fr));
+    justify-items: stretch;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+  
+  .order-content {
+    border: 3px solid #b8b9a0;
   }
 
   .product-name {
-
     font-size: 1rem;
-
   }
 
   .product-price {
-
     font-size: 1.1rem;
+  }
 
+  .product-img {
+    width: 100%;
+    height: 100px;
+    object-fit: contain;
+    margin-bottom: 0.5rem;
   }
 
   div.order-content{
@@ -1037,6 +1067,11 @@ onMounted(() => {
     font-size: 0.85rem;
     padding: 0.75rem;
     max-width: 150px;
+  }
+}
+@media (max-width: 360px) {
+  .products-grid {
+    grid-template-columns: repeat(1, minmax(180px, 1fr));
   }
 }
 </style>

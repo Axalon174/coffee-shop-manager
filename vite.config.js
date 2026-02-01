@@ -6,7 +6,7 @@ export default defineConfig({
   plugins: [vue()],
   server: {
     host: '0.0.0.0',
-    allowedHosts: ['localhost'],
+    allowedHosts: ['63198ab1ec86.ngrok-free.app'],
     port: 5173
   }
 })
