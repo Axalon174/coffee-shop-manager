@@ -2,6 +2,17 @@
 import { onMounted, computed, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useMenuStore } from '../stores/menu'
+import { 
+  Play, 
+  MapPin, 
+  Phone, 
+  Mail, 
+  Clock, 
+  ArrowUp, 
+  Coffee, 
+  CakeSlice, 
+  Cookie 
+} from 'lucide-vue-next'
 
 const router = useRouter()
 const menu = useMenuStore()
@@ -60,13 +71,13 @@ const scrollToSection = (sectionId) => {
           <ul>
             <li><a href="#hero" @click.prevent="scrollToSection('hero')" :class="{ active: activeSection === 'hero' }">Inicio</a></li>
             <li><a href="#about" @click.prevent="scrollToSection('about')" :class="{ active: activeSection === 'about' }">Sobre Nosotros</a></li>
-            <li><a href="#menu" @click.prevent="scrollToSection('menu')" :class="{ active: activeSection === 'menu' }">Menú</a></li>
+            <li><a id="menu" href="#menu" @click.prevent="scrollToSection('menu')" :class="{ active: activeSection === 'menu' }">Menú</a></li>
             <li><a href="#contact" @click.prevent="scrollToSection('contact')" :class="{ active: activeSection === 'contact' }">Contacto</a></li>
             <li><router-link to="/orders">Gestionar Comandas</router-link></li>
           </ul>
         </nav>
 
-        <a class="btn-getstarted" href="#menu" @click.prevent="scrollToSection('menu')">Ver el menú</a>
+        <a id= "btn-menu"class="btn-getstarted" href="#menu" @click.prevent="scrollToSection('menu')">Ver el menú</a>
       </div>
     </header>
 
@@ -80,7 +91,9 @@ const scrollToSection = (sectionId) => {
             <div class="hero-buttons">
               <a href="#menu" @click.prevent="scrollToSection('menu')" class="btn-primary">Ver el menú</a>
               <a href="https://youtu.be/NpEaa2P7qZI?si=HYgas1WeZ_gL0DPX" class="btn-video" target="_blank">
-                <span class="play-icon">▶</span>
+                <span class="play-icon">
+                  <Play :size="18" fill="currentColor" />
+                </span>
                 <span>Vídeo promocional</span>
               </a>
             </div>
@@ -107,7 +120,9 @@ const scrollToSection = (sectionId) => {
             </div>
             <div class="book-table">
               <h3>Reserva una mesa</h3>
-              <p class="phone-number">📞 +52 352 116 6570</p>
+              <p class="phone-number" style="display: flex; align-items: center; justify-content: center; gap: 0.5rem;">
+                <Phone :size="20" /> +52 352 116 6570
+              </p>
             </div>
           </div>
 
@@ -160,7 +175,7 @@ const scrollToSection = (sectionId) => {
               {{ category }}
             </button>
           </div>
-          <!-- Grid de productos destacados -->
+
           <div v-if="featuredItems.length > 0" class="menu-grid">
             <div 
               v-for="item in featuredItems" 
@@ -168,10 +183,11 @@ const scrollToSection = (sectionId) => {
               class="menu-item"
             >
                 <div class="menu-item-image">
-                <span v-if="!item.img_url" class="item-emoji">
-                  {{ item.category === 'Bebidas' ? '☕' : 
-                   item.category === 'Postres' ? '🧁' : '🍪' }}
-                </span>
+                <div v-if="!item.img_url" class="item-emoji" style="display: flex; justify-content: center;">
+                  <Coffee v-if="item.category === 'Bebidas'" :size="64" stroke-width="1.5" />
+                  <CakeSlice v-else-if="item.category === 'Postres'" :size="64" stroke-width="1.5" />
+                  <Cookie v-else :size="64" stroke-width="1.5" />
+                </div>
                 <img 
                   v-else 
                   :src="item.img_url" 
@@ -211,18 +227,18 @@ const scrollToSection = (sectionId) => {
             referrerpolicy="no-referrer-when-downgrade">
           </iframe>
         </div>
-
         <div class="contact-info-grid">
           <div class="contact-info-item">
-            <i class="icon">📍</i>
+            <MapPin class="icon" :size="32" />
             <div>
+              <h3>Dirección</h3>
               <h3>Dirección</h3>
               <p class="footer-text">Portal Morelos #32, La Piedad Michoacán CP: 59300</p>
             </div>
           </div>
 
           <div class="contact-info-item">
-            <i class="icon">📞</i>
+            <Phone class="icon" :size="32" />
             <div>
               <h3>Llámanos</h3>
               <p class="phone-number">+52 352 111 6432</p>
@@ -230,7 +246,7 @@ const scrollToSection = (sectionId) => {
           </div>
 
           <div class="contact-info-item">
-            <i class="icon">✉️</i>
+            <Mail class="icon" :size="32" />
             <div>
               <h3>Escríbenos</h3>
               <p>cafe.charly@gmail.com</p>
@@ -238,7 +254,7 @@ const scrollToSection = (sectionId) => {
           </div>
 
           <div class="contact-info-item">
-            <i class="icon">🕒</i>
+            <Clock class="icon" :size="32" />
             <div>
               <h3>Horario</h3>
               <p><strong>Lunes a Viernes:</strong> 11AM - 9PM</p>
@@ -254,7 +270,7 @@ const scrollToSection = (sectionId) => {
       <div class="container">
         <div class="footer-content">
           <div class="footer-col">
-            <i class="footer-icon">📍</i>
+            <MapPin class="footer-icon" :size="24" />
             <div class="footer-text">
               <h4>Dirección</h4>
               <p>Portal Morelos #32</p>
@@ -263,7 +279,7 @@ const scrollToSection = (sectionId) => {
           </div>
 
           <div class="footer-col">
-            <i class="footer-icon">📞</i>
+            <Phone class="footer-icon" :size="24" />
             <div class="footer-text">
               <h4>Contacto</h4>
               <p><strong>Teléfono:</strong> +52 352 111 6432</p>
@@ -272,7 +288,7 @@ const scrollToSection = (sectionId) => {
           </div>
 
           <div class="footer-col">
-            <i class="footer-icon">🕒</i>
+            <Clock class="footer-icon" :size="24" />
             <div    class="footer-text">
               <h4>Horario</h4>
               <p><strong>Lunes a Viernes:</strong> 11AM - 9PM</p>
@@ -289,7 +305,7 @@ const scrollToSection = (sectionId) => {
 
     <!-- Scroll Top Button -->
     <a href="#" @click.prevent="scrollToSection('hero')" class="scroll-top">
-      <span>↑</span>
+      <ArrowUp :size="24" />
     </a>
   </div>
 </template>
@@ -932,6 +948,49 @@ h3{
     width: 100%;
     height: 100%;
     object-fit: cover;
+  }
+}
+
+@media (max-width: 480px) {
+  header.header .sticky-top{
+    max-height: 20dvh;
+  }
+  div.hero-text {
+    margin-top: 20dvh;
+  }
+  .hero-section {
+    padding: 3rem 0;
+  }
+  #menu, #btn-menu {
+    display: none;
+  }
+  .hero-title {
+    font-size: 2rem;
+  }
+
+  .hero-subtitle {
+    font-size: 1rem;
+  }
+
+  .hero-buttons {
+    flex-direction: column;
+    width: 100%;
+    gap: 1rem;
+  }
+
+  .btn-primary {
+    width: 100%;
+    text-align: center;
+  }
+
+  .btn-video {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .coffee-cup-illustration img {
+    max-width: 220px;
+    height: auto;
   }
 }
 </style>

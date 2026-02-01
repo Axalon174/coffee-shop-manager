@@ -207,13 +207,14 @@ onMounted(() => {
       <header class="header">
         <div class="header-content">
           <h1>☕ Creador de Comandas</h1>
-           <button v-if="!tables.currentTable && !tables.loading" class="warning-message" @click="showWarningModal = true">
-             <TriangleAlert :size="20" />
-           </button>
-          <button class="instruction-message" @click="showInstructionModal = true">
-            <Lightbulb :size="20" />
-          </button>
-
+          <div class="spacer"> 
+            <button v-if="!tables.currentTable && !tables.loading" class="warning-message" @click="showWarningModal = true">
+              <TriangleAlert :size="20" />
+            </button>
+            <button class="instruction-message" @click="showInstructionModal = true">
+              <Lightbulb :size="20" />
+            </button>
+            </div>
         </div>
        
         <div class="table-selection-container">
@@ -953,7 +954,13 @@ onMounted(() => {
   line-height: 1.3;
 
 }
-
+.spacer {
+  display: flex;
+  flex-grow: 1;
+  gap: 0.5rem;
+  justify-content: flex-end;
+}
+/*---Media Queries---*/
 
 @media (max-width: 768px) {
 
